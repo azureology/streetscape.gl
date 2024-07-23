@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag streetscape:gl
+
+    - name: Upload image
+      uses: ishworkh/docker-image-artifact-upload@v2.0.1
+      with:
+        image: "streetscape:gl"
+        retention-days: "15"
