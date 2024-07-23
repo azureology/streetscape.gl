@@ -10,7 +10,9 @@ WORKDIR /streetscape
 ENV PATH /streetscape/node_modules/.bin:$PATH
 
 ENV DISPLAY :99
-
+RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list && \
+    sed -i s/security.debian.org/archive.debian.org/g /etc/apt/sources.list && \
+    sed -i s/stretch-updates/stretch/g /etc/apt/sources.list
 RUN apt-get update
 
 # required by lint script
